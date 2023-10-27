@@ -17,8 +17,7 @@ class BuildingFactory extends Factory
     public function definition()
     {
         return [
-            'car_parking' => $this->faker->boolean(),
-            'moto_parking' => $this->faker->boolean(),
+            //
         ];
     }
 }

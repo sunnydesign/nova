@@ -44,10 +44,6 @@ class Building extends Resource
     {
         return [
             ID::make()->sortable(),
-            Boolean::make('Active'),
-            Boolean::make('Car parking'),
-            Boolean::make('Moto parking'),
-            HasManyThrough::make('Listings'),
             HasMany::make('Categories'),
         ];
     }
@@ -60,9 +56,7 @@ class Building extends Resource
      */
     public function cards(NovaRequest $request)
     {
-        return [
-            (new Metrics\DaysLeftToRenovationMetric())->onlyOnDetail(),
-        ];
+        return [];
     }
 
     /**
@@ -95,11 +89,6 @@ class Building extends Resource
      */
     public function actions(NovaRequest $request)
     {
-        return [
-            resolve(CreateProject::class)
-                ->canSee(function ($request) {
-                    return $request->selectedResources()?->count() === 1;
-                }),
-        ];
+        return [];
     }
 }

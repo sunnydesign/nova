@@ -16,12 +16,4 @@ class Category extends Model
     {
         return $this->belongsTo(Building::class);
     }
-
-    /**
-     * Get the listing associated with the category.
-     */
-    public function listing()
-    {
-        return $this->hasOne(Listing::class);
-    }
 }

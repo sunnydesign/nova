@@ -44,7 +44,6 @@ class Category extends Resource
         return [
             ID::make()->sortable(),
             BelongsTo::make('Building'),
-            HasOne::make('Listing'),
         ];
     }
 
