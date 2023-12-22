@@ -2,11 +2,11 @@
 
 namespace App\Nova;
 
-use App\Nova\Actions\CreateProject;
-use Laravel\Nova\Fields\Boolean;
+use App\Nova\Actions\FirstAction;
+use App\Nova\Actions\SecondAction;
 use Laravel\Nova\Fields\HasMany;
-use Laravel\Nova\Fields\HasManyThrough;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Building extends Resource
@@ -24,6 +24,10 @@ class Building extends Resource
      * @var string
      */
     public static $title = 'id';
+
+    public function title() {
+        return 'Building ' . $this->id;
+    }
 
     /**
      * The columns that should be searched.
@@ -44,6 +48,9 @@ class Building extends Resource
     {
         return [
             ID::make()->sortable(),
+            Text::make('Name', function () {
+                return 'Building ' . $this->id;
+            }),
             HasMany::make('Categories'),
         ];
     }
@@ -89,6 +96,11 @@ class Building extends Resource
      */
     public function actions(NovaRequest $request)
     {
-        return [];
+        return [
+            resolve(FirstAction::class)
+                ->canRun(fn ($request, $building) => false),
+            resolve(SecondAction::class)
+                ->canRun(fn ($request, $building) => false),
+        ];
     }
 }

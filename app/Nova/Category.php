@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\HasOne;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Category extends Resource
@@ -33,6 +34,10 @@ class Category extends Resource
         'id',
     ];
 
+    public function title() {
+        return 'Category ' . $this->id;
+    }
+
     /**
      * Get the fields displayed by the resource.
      *
@@ -43,6 +48,9 @@ class Category extends Resource
     {
         return [
             ID::make()->sortable(),
+            Text::make('Name', function () {
+                return 'Category ' . $this->id;
+            }),
             BelongsTo::make('Building'),
         ];
     }
